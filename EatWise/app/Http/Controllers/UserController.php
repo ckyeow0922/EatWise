@@ -30,6 +30,13 @@ class UserController extends Controller
         return $user_name;
     }
 
+    public function getUser()
+    {
+        $user = Auth::user();
+
+        return $user;
+    }
+
     public function createUser(Request $request)
     {
         $validator = $this->validateRegister($request);

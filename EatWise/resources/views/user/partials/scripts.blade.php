@@ -11,51 +11,7 @@
         }
     });
 
-    function setMarginTop() {
-        // Get the header element
-        var header = document.getElementById('header');
-        // Get the main element
-        var main = document.getElementById('main');
 
-        // Get the category sidebars
-        var sidebars = [
-            document.getElementById('categorySidebar1'),
-            document.getElementById('categorySidebar2'),
-            document.getElementById('categorySidebar3'),
-            document.getElementById('categorySidebar4'),
-            document.getElementById('mobileSidebar'),
-            document.getElementById('sidebar'),
-        ];
-
-        // Calculate the margin-top and height for main and sidebars
-        var headerHeight = header.offsetHeight;
-        var windowHeight = window.innerHeight;
-        var sidebarHeight = windowHeight - headerHeight;
-
-        // Set the margin-top of the main body to be equal to the height of the header
-        main.style.setProperty('margin-top', headerHeight + 'px', 'important');
-
-        // Set the margin-top and height for the category sidebars
-        sidebars.forEach(function(sidebar) {
-            if (sidebar) {
-                sidebar.style.setProperty('margin-top', headerHeight + 'px', 'important');
-                sidebar.style.setProperty('height', sidebarHeight + 'px', 'important');
-            }
-        });
-    }
-
-    window.addEventListener('load', function() {
-        // Call the setMarginTop function when the window loads
-        setMarginTop();
-        // Call the setMarginTop function when the window is resized
-        window.addEventListener('resize', setMarginTop);
-
-        const pageLoader = document.getElementById('pageLoader');
-        pageLoader.style.opacity = '0';
-        setTimeout(function() {
-            pageLoader.style.display = 'none';
-        }, 500);
-    });
 
     function handleError(response) {
         const errors = response.responseJSON.errors;
@@ -94,51 +50,6 @@
     // Keep track of the sidebar state
     let sidebarNavigationOpen = false;
 
-    // Function to open or close the mobile navigation
-    function toggleNavigation() {
-        if (sidebarNavigationOpen) {
-            closeNavigation();
-        } else {
-            openNavigation();
-        }
-    }
-
-    function openNavigation() {
-        closeMobileNav();
-        // let filterMenu = document.getElementById('filterMenu');
-        // const overlayMobileFilter = document.getElementById('overlayMobileFilter');
-        // filterMenu.style.display = 'none';
-        // overlayMobileFilter.style.display = 'none';
-        sidebarNavigationOpen = true;
-        document.getElementById("sidebar").style.right = "0"; // Move the sidebar into view
-        document.getElementById("sidebar").style.display = "block";
-        // Show the overlay
-        document.getElementById("overlayMobileNav").style.display = "block";
-    }
-
-    /* Close the sidebar for hidden header options */
-    function closeNavigation() {
-        sidebarNavigationOpen = false;
-        document.getElementById("sidebar").style.display = "none"; // Move the sidebar off-screen to the right
-        // Show the overlay
-        document.getElementById("overlayMobileNav").style.display = "none";
-    }
-
-    // JavaScript for closing the sidebar when clicking outside the sidebar area
-    window.onclick = function(event) {
-        if (!event.target.matches('.btn-header')) {
-            closeNavigation();
-        }
-        if (!event.target.matches('.sidebar-toggle-btn')) {
-            closeNav();
-        }
-
-        var mobileSidebar = document.getElementById('mobileSidebar');
-        // Check if the clicked element is not part of the mobile sidebar or the sidebar toggle button
-        if (!mobileSidebar.contains(event.target) && !event.target.matches('.sidebar-toggle-btn')) {
-            closeMobileNav(); // Function to close the mobile sidebar
-        }
-    }
 
     // JavaScript to close sidebar when screen size is increased above 991px
     window.addEventListener('resize', function() {
@@ -338,19 +249,6 @@
         return queryString;
     }
 
-    // Function to initialize the main sidebar with top-level categories
-    function initializeSidebar() {
-        const mainSidebar = document.getElementById('categorySidebar1');
-        mainSidebar.innerHTML = ''; // Clear previous content
-
-        // Assuming hierarchicalCategories is an object where keys are category names and values are subcategory objects
-        const categories = Object.keys(hierarchicalCategories); // Get an array of category names
-
-        populateSidebar('categorySidebar1', categories);
-    }
-
-    // Call the initializeSidebar function to set up the initial state
-    initializeSidebar();
 
     var openMobileIcon =
         '{{ asset('storage/library/Icons/Arrows_Dropdown_More/Dropdown_W10px_H5px_Black.svg') }}';
@@ -468,8 +366,7 @@
         }
     }
 
-    // Call the function to populate mobile sidebar with top-level categories
-    populateMobileSidebar(hierarchicalCategories, document.getElementById('mobileSidebarMenu'));
+
 
     // Add event listener to category links
     document.querySelectorAll('.sidebar-menu li a').forEach(function(link) {

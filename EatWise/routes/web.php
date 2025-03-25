@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BMIController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AuthUser;
@@ -29,5 +30,11 @@ Route::middleware([AuthUser::class])->group(function () {
     Route::prefix('user')->group(function () {
         //user index page
         Route::get('/', [IndexController::class, 'userIndex'])->name('user.home');
+
+        //user bmi page
+        Route::prefix('/BMI')->group(function () {
+            Route::get('/', [BMIController::class, 'showBMIPage'])->name('user.BMI');
+            Route::post('/create', [BMIController::class, 'createBMI'])->name('user.BMI.create');
+        });
     });
 });

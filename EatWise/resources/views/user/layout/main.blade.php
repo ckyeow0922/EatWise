@@ -5,7 +5,6 @@
     @include('user.partials.head')
     @yield('style')
     <style>
-
     </style>
 </head>
 
@@ -13,7 +12,7 @@
     <div class="nk-app-root" style="background: white;">
         <div class="nk-wrap">
             @include('user.partials.header')
-            <div class="nk-content ">
+            <div class="nk-content mt-4">
                 <div class="container-fluid">
                     <div class="nk-content-inner">
                         <div class="nk-content-body">

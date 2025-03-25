@@ -11,8 +11,8 @@ class IndexController extends Controller
     public function userIndex()
     {
         $getUsers = new UserController();
-        $userName = $getUsers->getUserName();
-        return view('user.index', ['userName' => $userName]);
+        $user = $getUsers->getUser();
+        return view('user.index', ['user' => $user]);
     }
 
     public function index()

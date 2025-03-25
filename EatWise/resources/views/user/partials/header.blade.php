@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="nk-header-wrap">
             <div class="nk-header-app-name">
-                <img class="logo-header" src="images/eatWise-logo-removebg-preview.png" alt="">
+                <img class="logo-header" src="/images/eatWise-logo-removebg-preview.png" alt="">
                 <div class="nk-header-app-info">
                     <span class="sub-text" style="color: white">Dashboard</span>
                     <span class="lead-text" style="color: white">EatWise</span>
@@ -14,7 +14,7 @@
                     <!-- Menu -->
                     <ul class="nk-menu nk-menu-main">
                         <li class="nk-menu-item">
-                            <a href="html/index.html" class="nk-menu-link">
+                            <a href={{ route('user.BMI') }} class="nk-menu-link">
                                 <span class="nk-menu-text">BMI Tracker</span>
                             </a>
                         </li>
@@ -29,7 +29,7 @@
             </div>
             <div class="nk-header-tools">
                 <ul class="nk-quick-nav">
-                    <span class="lead-text" style="color: white">Welcome!!! {{ $userName }}</span>
+                    <span class="lead-text" style="color: white">Welcome!!! {{ $user->name }}</span>
                     </li><!-- .dropdown -->
                     <li class="dropdown user-dropdown">
                         <a href="#" class="dropdown-toggle me-n1" data-bs-toggle="dropdown">
