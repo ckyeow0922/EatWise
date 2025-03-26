@@ -16,31 +16,34 @@ class BMIController extends Controller
     {
         $getUser = new UserController();
         $user = $getUser->getUser();
-        $userBMI = $this->getBMI();
+        $userBMI = $this->getBMI(); // May be null at first
 
-        // Convert the bmiRecords collection to a JSON structure that includes only the fields you need.
-        $bmiDataJson = $userBMI->bmiRecords->map(function ($record) {
+        // If $userBMI is null, use an empty collection.
+        $bmiRecords = $userBMI ? $userBMI->bmiRecords : collect();
+
+        // Convert the collection to JSON
+        $bmiDataJson = $bmiRecords->map(function ($record) {
             return [
                 'bmi'        => $record->BMI,
                 'created_at' => $record->created_at->format('Y-m-d'),
             ];
         })->toJson();
 
-        // You can dd($bmiDataJson) here if you want to inspect the JSON output:
-        // dd($bmiDataJson);
-
         return view('user.bmi_tracker', [
-            'user' => $user,
-            'BMIRecord' => $userBMI->bmiRecords,
+            'user'        => $user,
+            'BMIRecords'   => $userBMI ? $userBMI->bmiRecords : null,
             'bmiDataJson' => $bmiDataJson,
         ]);
     }
+
 
     public function getBMI()
     {
         $user = Auth::user();
         $userBMI = BMI::where('user_id', $user->id)->with('bmiRecords')->first();
-
+        if (!$userBMI) {
+            return null;
+        }
         return $userBMI;
     }
 
@@ -66,10 +69,22 @@ class BMIController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
+        $bmi = $request->BMI; // Assuming $request->bmi contains the BMI value
+
+
+        if ($bmi < 18.5) {
+            $category = 'UNDERWEIGHT';
+        } elseif ($bmi >= 18.5 && $bmi < 25) {
+            $category = 'NORMAL_WEIGHT';
+        } elseif ($bmi >= 25 && $bmi < 30) {
+            $category = 'OVERWEIGHT';
+        } else {
+            $category = 'OBESE';
+        }
         try {
             $BMIRecordController = new BMIRecordController();
             $existingBMI = BMI::where('user_id', $user->id)->first();
-            $BMIRecord = $BMIRecordController->store($existingBMI->id, $request->BMI);
+            $BMIRecord = $BMIRecordController->store($existingBMI->id, $request->BMI, $request->height, $request->weight, $category);
             if ($BMIRecord['status']) {
                 $data = [
                     'status' => true,

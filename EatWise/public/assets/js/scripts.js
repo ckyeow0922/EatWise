@@ -490,16 +490,16 @@
                     dom: dom,
                     language: {
                         search: "",
-                        searchPlaceholder: "검색어를 기입하세요.",
-                        lengthMenu: "<span class='d-none d-sm-inline-block'>페이지 당</span><div class='form-control-select'> _MENU_ </div>",
+                        searchPlaceholder: "Please enter a search term.",
+                        lengthMenu: "<span class='d-none d-sm-inline-block'>per page</span><div class='form-control-select'> _MENU_ </div>",
                         info: "_START_ -_END_ of _TOTAL_",
                         infoEmpty: "0",
                         infoFiltered: "( Total _MAX_  )",
                         paginate: {
-                            "first": "처음",
-                            "last": "마지막",
-                            "next": "다음",
-                            "previous": "이전"
+                            "first": "First",
+                            "last": "Last",
+                            "next": "Next",
+                            "previous": "Previous"
                         }
                     }
                 },

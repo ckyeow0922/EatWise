@@ -17,6 +17,9 @@ return new class extends Migration
             $table->unsignedBigInteger('bmi_id');
             // Column to store the BMI value
             $table->float('BMI');
+            $table->float('height');
+            $table->float('weight');
+            $table->enum('category', ['UNDERWEIGHT', 'NORMAL_WEIGHT', 'OVERWEIGHT', 'OBESE']);
             // Default timestamp columns (created_at, updated_at)
             $table->string('token')->unique(); // Add token column
             $table->timestamps();

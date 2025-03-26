@@ -10,12 +10,15 @@ use Illuminate\Support\Str;
 class BMIRecordController extends Controller
 {
     //
-    public function store($bmi_id, $BMI)
+    public function store($bmi_id, $BMI, $height, $weight, $category)
     {
         try {
             BMIRecord::create([
                 'bmi_id' => $bmi_id,
                 'BMI' => $BMI,
+                'height' => $height,
+                'weight' => $weight,
+                'category' => $category,
                 'token' => Str::uuid()
             ]);
 

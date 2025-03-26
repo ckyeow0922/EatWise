@@ -7,14 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class BMIRecord extends Model
 {
-    //
     use HasFactory;
 
     protected $table = 'bmi_records';
+
     // Mass assignable fields
     protected $fillable = [
         'bmi_id',
         'BMI',
+        'height',
+        'weight',
+        'category',
         'token'
     ];
 

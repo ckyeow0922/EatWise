@@ -81,11 +81,49 @@
                                     </div>
                                 </div>
                                 <!-- Chart Container -->
-                                <div style="max-height: 400px"><canvas class="analytics-line-large"
-                                        id="analyticBMIData"></canvas></div>
+                                <div style="max-height: 400px">
+                                    <canvas class="analytics-line-large" id="analyticBMIData"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="card card-bordered card-preview">
+                        <div class="card-inner">
+                            <table class="datatable-init table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>BMI</th>
+                                        <th>Height (cm)</th>
+                                        <th>Weight (kg)</th>
+                                        <th>Date</th>
+                                        <th>Category</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($BMIRecords as $BMIRecord)
+                                        <tr>
+                                            <td>{{ $BMIRecord->id }}</td>
+                                            <td class="lead-text">{{ $BMIRecord->BMI }}</td>
+                                            <td>{{ $BMIRecord->height }}</td>
+                                            <td>{{ $BMIRecord->weight }}</td>
+                                            <td>{{ $BMIRecord->created_at }}</td>
+                                            @if ($BMIRecord->category === 'UNDERWEIGHT')
+                                                <td style="color:#6576FF">Underweight</td>
+                                            @elseif($BMIRecord->category === 'NORMAL_WEIGHT')
+                                                <td style="color: #1EE0AC">Normal weight</td>
+                                            @elseif($BMIRecord->category === 'OVERWEIGHT')
+                                                <td style="color: #F4BD0E">Overweight</td>
+                                            @elseif($BMIRecord->category === 'OBESE')
+                                                <td style="color: #E85347">Obese</td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!-- .card-preview -->
                 </div>
             </div>
         </div>
@@ -135,11 +173,15 @@
             event.preventDefault();
             var token = $('#token').val().trim();
             var bmi = $('#BMIValue').val().trim();
+            var height = $('#height').val().trim();
+            var weight = $('#weight').val().trim();
             console.log(token);
             console.log(bmi);
             var formData = new FormData();
             formData.append('token', token);
             formData.append('BMI', bmi);
+            formData.append('height', height);
+            formData.append('weight', weight);
 
             $('#storeBMIBtn').prop('disabled', true);
 
