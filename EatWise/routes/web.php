@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BMIController;
+use App\Http\Controllers\DietRecommenderController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AuthUser;
@@ -35,6 +36,10 @@ Route::middleware([AuthUser::class])->group(function () {
         Route::prefix('/BMI')->group(function () {
             Route::get('/', [BMIController::class, 'showBMIPage'])->name('user.BMI');
             Route::post('/create', [BMIController::class, 'createBMI'])->name('user.BMI.create');
+        });
+
+        Route::prefix('/diet-recommender')->group(function () {
+            Route::get('/', [DietRecommenderController::class, 'showDietRecommender'])->name('user.DietRecommender');
         });
     });
 });

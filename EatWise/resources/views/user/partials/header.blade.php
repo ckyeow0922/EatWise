@@ -19,7 +19,7 @@
                             </a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="html/components.html" class="nk-menu-link">
+                            <a href={{ route('user.DietRecommender') }} class="nk-menu-link">
                                 <span class="nk-menu-text">Diet Recommender</span>
                             </a>
                         </li>
